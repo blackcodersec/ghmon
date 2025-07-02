@@ -99,12 +99,79 @@ chmod +x install.sh
 ### Option C: Python Package Installation
 
 ```bash
-# Install from PyPI (when available)
-pip install ghmon-cli
+# Install from GitHub Releases (Recommended)
+wget https://github.com/sl4x0/ghmon/releases/download/v1.0.0/ghmon_cli-1.0.0-py3-none-any.whl
+pip install ghmon_cli-1.0.0-py3-none-any.whl
+
+# Or install from source distribution
+wget https://github.com/sl4x0/ghmon/releases/download/v1.0.0/ghmon_cli-1.0.0.tar.gz
+pip install ghmon_cli-1.0.0.tar.gz
 
 # Or install in development mode
 pip install -e .
 ```
+
+### Option D: Docker Deployment
+
+For containerized environments and CI/CD pipelines:
+
+```bash
+# Clone the repository
+git clone https://github.com/sl4x0/ghmon.git
+cd ghmon
+
+# Copy and configure your settings
+cp ghmon_config.yaml.example ghmon_config.yaml
+# Edit ghmon_config.yaml with your API tokens and settings
+
+# Build the Docker image
+docker build -t ghmon-cli:latest .
+
+# Run one-time scan
+docker run --rm \
+  -v $(pwd)/ghmon_config.yaml:/app/ghmon_config.yaml:ro \
+  -v $(pwd)/data:/app/data \
+  -v $(pwd)/logs:/app/logs \
+  ghmon-cli:latest \
+  python -m ghmon_cli scan -o YOUR_ORG_NAME --config /app/ghmon_config.yaml
+
+# Run continuous monitoring
+docker run -d \
+  --name ghmon-monitor \
+  --restart unless-stopped \
+  -v $(pwd)/ghmon_config.yaml:/app/ghmon_config.yaml:ro \
+  -v $(pwd)/data:/app/data \
+  -v $(pwd)/logs:/app/logs \
+  ghmon-cli:latest \
+  python -m ghmon_cli monitor --config /app/ghmon_config.yaml
+```
+
+#### Docker Compose (Recommended)
+
+For easier management, use the provided `docker-compose.yml`:
+
+```bash
+# Start continuous monitoring
+docker-compose up -d
+
+# Run one-time scan
+ORG_NAME=your-org-name docker-compose --profile scan up ghmon-scan
+
+# View logs
+docker-compose logs -f
+
+# Stop services
+docker-compose down
+```
+
+#### Docker Features
+
+- **🔒 Security**: Runs as non-root user
+- **📁 Persistent Data**: Volumes for configuration, data, and logs
+- **🔄 Auto-restart**: Automatic container restart on failure
+- **📊 Health Checks**: Built-in container health monitoring
+- **⚡ Resource Limits**: Configurable CPU and memory limits
+- **🐳 Multi-stage Build**: Optimized image size
 
 ---
 

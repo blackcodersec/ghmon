@@ -1,0 +1,73 @@
+version: '3.8'
+
+services:
+  ghmon-cli:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: ghmon-cli:latest
+    container_name: ghmon-scanner
+    restart: unless-stopped
+    
+    # Mount configuration and data directories
+    volumes:
+      - ./ghmon_config.yaml:/app/ghmon_config.yaml:ro
+      - ./data:/app/data
+      - ./logs:/app/logs
+    
+    # Environment variables
+    environment:
+      - GHMON_CONFIG_PATH=/app/ghmon_config.yaml
+      - GHMON_DATA_DIR=/app/data
+      - GHMON_LOG_DIR=/app/logs
+      - PYTHONUNBUFFERED=1
+    
+    # Override default command for continuous monitoring
+    command: ["python", "-m", "ghmon_cli", "monitor", "--config", "/app/ghmon_config.yaml"]
+    
+    # Resource limits
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+          cpus: '0.5'
+        reservations:
+          memory: 256M
+          cpus: '0.25'
+    
+    # Health check
+    healthcheck:
+      test: ["CMD", "python", "-m", "ghmon_cli", "--version"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+  # Optional: One-time scan service
+  ghmon-scan:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: ghmon-cli:latest
+    container_name: ghmon-one-time-scan
+    profiles: ["scan"]  # Only run when explicitly requested
+    
+    volumes:
+      - ./ghmon_config.yaml:/app/ghmon_config.yaml:ro
+      - ./data:/app/data
+      - ./logs:/app/logs
+    
+    environment:
+      - GHMON_CONFIG_PATH=/app/ghmon_config.yaml
+      - GHMON_DATA_DIR=/app/data
+      - GHMON_LOG_DIR=/app/logs
+      - PYTHONUNBUFFERED=1
+    
+    # Override for one-time scan (set ORG_NAME via environment)
+    command: ["python", "-m", "ghmon_cli", "scan", "-o", "${ORG_NAME:-example-org}", "--config", "/app/ghmon_config.yaml"]
+
+volumes:
+  ghmon_data:
+    driver: local
+  ghmon_logs:
+    driver: local
