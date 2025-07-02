@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "ghmon-cli"
-version = "0.3.0"
+version = "1.0.0"
 description = "CLI tool for scanning repositories for secrets using TruffleHog with multi-platform notifications"
 readme = "README.md"
 license = { text = "MIT" }
@@ -64,11 +64,11 @@ test = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/example/ghmon-cli"
-Documentation = "https://github.com/example/ghmon-cli#readme"
-Repository = "https://github.com/example/ghmon-cli.git"
-"Bug Tracker" = "https://github.com/example/ghmon-cli/issues"
-Changelog = "https://github.com/example/ghmon-cli/blob/main/CHANGELOG.md"
+Homepage = "https://github.com/sl4x0/ghmon"
+Documentation = "https://github.com/sl4x0/ghmon#readme"
+Repository = "https://github.com/sl4x0/ghmon.git"
+"Bug Tracker" = "https://github.com/sl4x0/ghmon/issues"
+Changelog = "https://github.com/sl4x0/ghmon/blob/main/CHANGELOG.md"
 
 [project.scripts]
 ghmon-cli = "ghmon_cli.cli:cli"

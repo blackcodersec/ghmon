@@ -17,11 +17,11 @@ This package provides:
 from typing import List
 
 # Package metadata
-__version__ = "0.3.0"
+__version__ = "1.0.0"
 __author__ = "Security Team"
 __email__ = "security@example.com"
 __description__ = "CLI tool for scanning repositories for secrets using TruffleHog"
-__url__ = "https://github.com/example/ghmon-cli"
+__url__ = "https://github.com/sl4x0/ghmon"
 
 # --- Import Custom Exceptions ---
 from .exceptions import (
