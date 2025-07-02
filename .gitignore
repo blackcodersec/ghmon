@@ -1,0 +1,102 @@
+# .gitignore for ghmon-cli project
+
+# --- Python ---
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+
+# --- Virtual Environments ---
+# Common names for virtual environments
+venv/
+.venv/
+env/
+.env/
+ENV/
+env.bak/
+venv.bak/
+
+# --- IDEs / Editors ---
+# VS Code
+.vscode/
+# PyCharm
+.idea/
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+# Atom
+.atom/
+# Vim
+*.swp
+*.swo
+
+# --- OS Generated Files ---
+# MacOS
+.DS_Store
+.AppleDouble
+.LSOverride
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+# Linux
+*~
+
+# --- ghmon-cli Specific ---
+# Default output directory (contains state, results, summaries)
+scan_results/
+
+# Configuration file (Uncomment if it contains secrets you don't want in Git)
+# ghmon_config.yaml
+
+# Log files (if you add file logging later)
+*.log
+logs/
+*.log.*
+
+# Secrets files (if used separately)
+*.token
+*.secret
+secrets.yaml
+secrets.json
+
+# --- Other ---
+# Notebook checkpoint files
+.ipynb_checkpoints
