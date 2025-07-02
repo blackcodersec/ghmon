@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="static/banner.png" alt="ghmon-cli Banner" width="800"/>
+  <img src="https://raw.githubusercontent.com/sl4x0/ghmon/main/static/banner.png" alt="ghmon-cli Banner" style="max-width: 100%; height: auto;"/>
 </div>
 
 # ghmon-cli: Repository Security Scanner
