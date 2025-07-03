@@ -1,8 +1,8 @@
 <div align="center">
-  <img src="https://raw.githubusercontent.com/sl4x0/ghmon/main/static/banner.png" alt="ghmon-cli Banner" style="max-width: 100%; height: auto;"/>
+  <img src="https://raw.githubusercontent.com/sl4x0/ghmon/main/static/banner.png" alt="ghmon Banner" style="max-width: 100%; height: auto;"/>
 </div>
 
-# ghmon-cli: Repository Security Scanner
+# ghmon: Repository Security Scanner
 
 [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
@@ -10,13 +10,13 @@
 
 > A powerful command-line tool for scanning GitHub and GitLab repositories for leaked secrets using TruffleHog, with intelligent notifications and continuous monitoring capabilities.
 
-ghmon-cli streamlines secret detection for DevOps and security teams. It automatically discovers repositories, runs TruffleHog scans, and sends alerts through Discord or Telegram. Use it for one-off scans or continuous monitoring to keep your code free of leaked credentials.
+ghmon streamlines secret detection for DevOps and security teams. It automatically discovers repositories, runs TruffleHog scans, and sends alerts through Discord or Telegram. Use it for one-off scans or continuous monitoring to keep your code free of leaked credentials.
 
 ---
 
-## 🚀 What is ghmon-cli?
+## 🚀 What is ghmon?
 
-**ghmon-cli** is a comprehensive security scanning tool that helps you:
+**ghmon** is a comprehensive security scanning tool that helps you:
 
 - **🔍 Discover** repositories from organizations on GitHub and GitLab
 - **🔐 Scan** repository history for leaked secrets using TruffleHog
@@ -72,8 +72,8 @@ Choose your preferred installation method:
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-username/ghmon-cli.git
-cd ghmon-cli
+git clone https://github.com/sl4x0/ghmon.git
+cd ghmon
 
 # Make scripts executable
 chmod +x install.sh
@@ -86,12 +86,12 @@ chmod +x install.sh
 
 ```bash
 # Upload archive to your server
-scp ghmon-cli-*.tar.gz user@server:~/
+scp ghmon-*.tar.gz user@server:~/
 
 # Extract and install
 ssh user@server
-tar -xzf ghmon-cli-*.tar.gz
-cd ghmon-cli
+tar -xzf ghmon-*.tar.gz
+cd ghmon
 chmod +x install.sh
 ./install.sh
 ```
@@ -125,14 +125,14 @@ cp ghmon_config.yaml.example ghmon_config.yaml
 # Edit ghmon_config.yaml with your API tokens and settings
 
 # Build the Docker image
-docker build -t ghmon-cli:latest .
+docker build -t ghmon:latest .
 
 # Run one-time scan
 docker run --rm \
   -v $(pwd)/ghmon_config.yaml:/app/ghmon_config.yaml:ro \
   -v $(pwd)/data:/app/data \
   -v $(pwd)/logs:/app/logs \
-  ghmon-cli:latest \
+  ghmon:latest \
   python -m ghmon_cli scan -o YOUR_ORG_NAME --config /app/ghmon_config.yaml
 
 # Run continuous monitoring
@@ -142,7 +142,7 @@ docker run -d \
   -v $(pwd)/ghmon_config.yaml:/app/ghmon_config.yaml:ro \
   -v $(pwd)/data:/app/data \
   -v $(pwd)/logs:/app/logs \
-  ghmon-cli:latest \
+  ghmon:latest \
   python -m ghmon_cli monitor --config /app/ghmon_config.yaml
 ```
 
@@ -177,7 +177,7 @@ docker-compose down
 
 ## 🛠️ Configuration
 
-ghmon-cli uses a YAML configuration file (`ghmon_config.yaml`) for all settings. Create this file in your project root directory.
+ghmon uses a YAML configuration file (`ghmon_config.yaml`) for all settings. Create this file in your project root directory.
 
 ### Quick Start Configuration
 
@@ -257,7 +257,7 @@ Scan all organizations listed in your configuration:
 python -m ghmon_cli scan --config ghmon_config.yaml
 
 # Or using the installed command
-ghmon-cli scan --config ghmon_config.yaml
+ghmon scan --config ghmon_config.yaml
 
 # Scan specific organizations
 python -m ghmon_cli scan --config ghmon_config.yaml --orgs "org1,org2"
@@ -288,7 +288,7 @@ Verify your notification setup:
 python -m ghmon_cli notify --test --config ghmon_config.yaml
 
 # Or using the installed command
-ghmon-cli notify --test --config ghmon_config.yaml
+ghmon notify --test --config ghmon_config.yaml
 ```
 
 #### 4. Configuration Validation
@@ -458,7 +458,7 @@ tail -f scan_results/logs/ghmon_$(date +%Y-%m-%d).log
 
 ### API Token Management
 
-`ghmon-cli` now features enhanced token management with automatic rotation and rate limit handling:
+`ghmon` now features enhanced token management with automatic rotation and rate limit handling:
 
 - **Multiple Token Support**:
 
@@ -526,8 +526,8 @@ tail -f scan_results/logs/ghmon_$(date +%Y-%m-%d).log
 2. **Clone and Install**
 
    ```bash
-   git clone https://github.com/your-username/ghmon-cli.git
-   cd ghmon-cli
+   git clone https://github.com/sl4x0/ghmon.git
+   cd ghmon
    ./install.sh
    ```
 
